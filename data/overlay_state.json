@@ -1,7 +1,26 @@
 {
-  "status": "idle",
-  "question": null,
-  "answers": [],
+  "status": "live",
+  "question": {
+    "text": "Mennyi 8 × 7?",
+    "answers": [
+      {
+        "letter": "A",
+        "text": "54"
+      },
+      {
+        "letter": "B",
+        "text": "56"
+      },
+      {
+        "letter": "C",
+        "text": "58"
+      },
+      {
+        "letter": "D",
+        "text": "64"
+      }
+    ]
+  },
   "counts": {
     "A": 0,
     "B": 0,
