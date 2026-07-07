@@ -1,4 +1,6 @@
+import asyncio
 import threading
+from contextlib import suppress
 from collections.abc import Callable
 from dataclasses import dataclass
 
@@ -70,14 +72,21 @@ class TikTokModule:
         self.thread.start()
 
     def stop(self) -> None:
-        stop = getattr(self.client, "stop", None)
-        if callable(stop):
-            stop()
+        coroutine = self.client.disconnect(close_client=True)
+        loop = getattr(self.client, "_asyncio_loop", None)
+        try:
+            if loop and loop.is_running():
+                asyncio.run_coroutine_threadsafe(coroutine, loop)
+            else:
+                asyncio.run(coroutine)
+        except Exception:
+            with suppress(RuntimeError):
+                coroutine.close()
         self.connected = False
-        self._status("Disconnected")
+        self._status("Nincs kapcsolat")
 
     def _run(self) -> None:
-        self._status(f"Connecting to @{self.username}...")
+        self._status(f"Kapcsolódás @{self.username}...")
         try:
             self.client.run()
         except Exception as exc:
@@ -90,4 +99,4 @@ class TikTokModule:
 
     def _is_vote(self, comment: str) -> bool:
         value = comment.strip().upper()
-        return len(value) > 0 and value[0] in {"A", "B", "C", "D"}
+        return value in {"A", "B", "C", "D"}

@@ -128,4 +128,4 @@ class GameEngine:
 
     def _normalize_answer(self, comment: str) -> str:
         text = comment.strip().upper()
-        return text[0] if text else ""
+        return text if text in LETTERS else ""
