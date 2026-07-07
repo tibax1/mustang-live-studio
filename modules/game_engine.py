@@ -22,8 +22,9 @@ class VoteResult:
 
 
 class GameEngine:
-    def __init__(self, round_seconds: int = 30) -> None:
+    def __init__(self, round_seconds: int = 30, points_correct: int = 100) -> None:
         self.round_seconds = round_seconds
+        self.points_correct = points_correct
         self.questions = self._load_questions()
         self.used_questions: set[str] = set()
         self.current_question: dict[str, Any] | None = None
@@ -87,7 +88,35 @@ class GameEngine:
             "counts": counts,
             "total_votes": len(self.votes),
             "correct": correct_letter,
+            "correct_text": self.correct_answer_text(),
             "winners": winners,
+            "points_per_winner": self.points_correct,
+        }
+
+    def counts(self) -> dict[str, int]:
+        counts = {letter: 0 for letter in LETTERS}
+        for answer in self.votes.values():
+            counts[answer] += 1
+        return counts
+
+    def participants(self) -> list[str]:
+        return list(self.votes.keys())
+
+    def correct_answer_text(self) -> str:
+        if not self.current_question:
+            return ""
+        correct_index = int(self.current_question["helyes"])
+        return str(self.current_question["valaszok"][correct_index])
+
+    def overlay_question(self) -> dict[str, Any] | None:
+        if not self.current_question:
+            return None
+        return {
+            "text": self.current_question["kerdes"],
+            "answers": [
+                {"letter": letter, "text": self.current_question["valaszok"][index]}
+                for index, letter in enumerate(LETTERS)
+            ],
         }
 
     def seconds_left(self) -> int:

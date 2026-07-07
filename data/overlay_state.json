@@ -1,0 +1,14 @@
+{
+  "status": "idle",
+  "question": null,
+  "answers": [],
+  "counts": {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0
+  },
+  "seconds_left": 0,
+  "leaderboard": [],
+  "result": null
+}
