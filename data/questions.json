@@ -1,0 +1,32 @@
+[
+    {
+        "kerdes": "Melyik bolygót hívják vörös bolygónak?",
+        "valaszok": [
+            "Föld",
+            "Mars",
+            "Jupiter",
+            "Vénusz"
+        ],
+        "helyes": 1
+    },
+    {
+        "kerdes": "Mennyi 8 × 7?",
+        "valaszok": [
+            "54",
+            "56",
+            "58",
+            "64"
+        ],
+        "helyes": 1
+    },
+    {
+        "kerdes": "Magyarország fővárosa?",
+        "valaszok": [
+            "Szeged",
+            "Budapest",
+            "Debrecen",
+            "Pécs"
+        ],
+        "helyes": 1
+    }
+]

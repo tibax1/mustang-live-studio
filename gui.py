@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from modules.quiz import QuizModule
 
 
 def start():
@@ -27,49 +28,87 @@ def start():
     status = ctk.CTkFrame(app, height=30)
     status.pack(side="bottom", fill="x")
 
+    title = ctk.CTkLabel(
+        header,
+        text="Dashboard",
+        font=("Arial", 24, "bold")
+    )
+
+    title.pack(pady=12)
+
+    quiz = QuizModule(
+        app,
+        content,
+        title
+    )
+
+    def clear():
+
+        for widget in content.winfo_children():
+            widget.destroy()
+
+    def dashboard():
+
+        title.configure(text="Dashboard")
+
+        clear()
+
+        ctk.CTkLabel(
+            content,
+            text="🐎 Mustang Live Studio",
+            font=("Arial", 32, "bold")
+        ).pack(pady=40)
+
+        ctk.CTkLabel(
+            content,
+            text="Üdvözöl a Mustang Live Studio!",
+            font=("Arial", 20)
+        ).pack()
+
     ctk.CTkLabel(
         menu,
         text="🐎\nMustang\nLive Studio",
         font=("Arial", 28, "bold")
     ).pack(pady=25)
 
-    gombok = [
-        "🏠 Dashboard",
-        "🎮 Quiz",
-        "📺 TikTok Live",
-        "🏆 Ranglista",
-        "⚙️ Beállítások"
-    ]
+    ctk.CTkButton(
+        menu,
+        text="🏠 Dashboard",
+        command=dashboard,
+        height=42
+    ).pack(fill="x", padx=15, pady=5)
 
-    for gomb in gombok:
-        ctk.CTkButton(
-            menu,
-            text=gomb,
-            height=42
-        ).pack(fill="x", padx=15, pady=5)
+    ctk.CTkButton(
+        menu,
+        text="🎮 Quiz",
+        command=quiz.start,
+        height=42
+    ).pack(fill="x", padx=15, pady=5)
 
-    ctk.CTkLabel(
-        header,
-        text="Dashboard",
-        font=("Arial",24,"bold")
-    ).pack(pady=12)
+    ctk.CTkButton(
+        menu,
+        text="📺 TikTok Live",
+        height=42
+    ).pack(fill="x", padx=15, pady=5)
 
-    ctk.CTkLabel(
-        content,
-        text="Üdvözöl a Mustang Live Studio!",
-        font=("Arial",32,"bold")
-    ).pack(pady=40)
+    ctk.CTkButton(
+        menu,
+        text="🏆 Ranglista",
+        height=42
+    ).pack(fill="x", padx=15, pady=5)
 
-    ctk.CTkLabel(
-        content,
-        text="Ez lesz a központi vezérlőpult.",
-        font=("Arial",18)
-    ).pack()
+    ctk.CTkButton(
+        menu,
+        text="⚙️ Beállítások",
+        height=42
+    ).pack(fill="x", padx=15, pady=5)
+
+    dashboard()
 
     ctk.CTkLabel(
         status,
-        text="Állapot: Készen áll | Verzió: 0.2",
-        font=("Arial",12)
+        text="Állapot: Készen áll | Verzió: 0.3",
+        font=("Arial", 12)
     ).pack(pady=5)
 
     app.mainloop()
